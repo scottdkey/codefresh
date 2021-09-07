@@ -1,4 +1,4 @@
-FROM node:current-alpine.3.11 as build
+FROM node:16-alpine3.11 as build
 WORKDIR /usr/app
 COPY package.json .
 COPY yarn.lock .
@@ -7,7 +7,7 @@ COPY . .
 RUN yarn tsc
 
 
-FROM node:current-alpine.3.11
+FROM node:16-alpine3.11
 WORKDIR /usr/app
 COPY package.json . 
 COPY yarn.lock .

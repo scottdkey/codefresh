@@ -12,7 +12,10 @@
     "watch:tsc": "tsc -w",
     "watch:source": "nodemon dist/index.js",
     "dev": "run-p watch:*",
-    "test": "mocha -r ts-node/register tests/**/*.test.ts --exit"
+    "test": "mocha -r ts-node/register tests/**/*.test.ts --exit",
+    "build:docker": "docker build -t scottdkey/codefresh:$(echo $npm_package_version) .",
+    "build:docker-push": "docker push scottdkey/codefresh:$(echo $npm_package_version)",
+    "build": "run-s build:*"
   },
   "dependencies": {
     "koa": "^2.13.1",
