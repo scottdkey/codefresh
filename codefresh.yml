@@ -1,0 +1,42 @@
+version: "1.0"
+stages:
+  - "clone"
+  - "version"
+  - "test"
+  - "build"
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "scottdkey/codefresh"
+    revision: "${{CF_BRANCH}}"
+    git: "github"
+    stage: "clone"
+
+  version:
+    title: "Package.json version"
+    type: "freestyle"
+    image: "node:current-alpine3.11"
+    working_directory: "${{clone}}"
+    commands:
+      - cf_export PKG_VERSION=$(node -p "require('./package.json').version")
+    stage: "version"
+
+  test:
+    title: "Unit tests"
+    type: "freestyle"
+    image: "node:current-alpine3.11"
+    working_directory: "${{clone}}"
+    commands:
+      - yarn
+      - yarn test
+    stage: "test"
+
+  build:
+    title: "Building Docker image"
+    type: "build"
+    image_name: "scottdkey/codefresh"
+    working_directory: "${{clone}}"
+    tags: ["${{PKG_VERSION}}", "${{CF_SHORT_REVISION}}", "${{CF_BUILD_ID}}"]
+    dockerfile: "Dockerfile"
+    stage: "build"
