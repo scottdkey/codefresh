@@ -1,14 +1,12 @@
-import Koa from "koa"
-import bodyParser from "koa-bodyparser"
+import Express from "express"
 import indexRouter from "./routers/indexRouter"
 
 
 
 
-const app = new Koa()
-app.use(bodyParser())
+const app = Express()
 
-app.use(indexRouter.routes())
+app.use(indexRouter)
 
 export const server = app.listen(3000, () => {
   console.log(`listening on port ${3000}`)

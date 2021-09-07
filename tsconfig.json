@@ -24,5 +24,5 @@
     "baseUrl": "."
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "tests/baseline/index.test.ts", "tests/indexRouter.test.ts"]
+  "include": ["./src/**/*.ts", "tests/**/**.test.ts"]
 }

@@ -1,23 +1,20 @@
-import Router from "koa-router"
+import { Router } from "express"
 
-const router = new Router()
+const router = Router()
 
-router.get('/', async (ctx, next) => {
-  ctx.body = { message: "hello world" }
-  ctx.status = 200
-  next()
+router.get('/', (_, res) => {
+  res.send({ message: 'hello world' })
+  res.status(200)
 })
 
-router.put("/:test", async (ctx, next) => {
-  ctx.body = { message: ctx.params.test }
-  ctx.status = 200
-  next()
+router.put("/:test", (req, res) => {
+  res.send({ message: req.params.test })
+  res.status(200)
 })
 
-router.get("/kube", async (ctx, next) => {
-  ctx.body = { message: "cicd test 1" }
-  ctx.status = 200
-  next()
+router.get("/kube", async (_, res) => {
+  res.send({ message: "cicd test 1" })
+  res.status(200)
 })
 
 export default router
