@@ -26,14 +26,5 @@ describe("index router tests", () => {
 
   })
 
-  it("Test the changing endpoint", async () => {
-    chai.request(server).get('/kube').end((err, res) => {
-      should.not.exist(err)
-      expect(res.status).to.equal(200)
-      expect(res.body.message).to.equal("cicd test 1")
-    })
-
-  })
-
 })
 
