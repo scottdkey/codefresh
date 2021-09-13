@@ -12,9 +12,4 @@ router.put("/:test", (req, res) => {
   res.status(200)
 })
 
-router.get("/kube", async (_, res) => {
-  res.send({ message: "cicd test 1" })
-  res.status(200)
-})
-
 export default router

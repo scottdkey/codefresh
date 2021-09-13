@@ -1,0 +1,32 @@
+version: "1.0"
+stages:
+  - "clone"
+  - "test"
+  - "build"
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "scottdkey/codefresh"
+    revision: "${{CF_BRANCH}}"
+    git: "github"
+    stage: "clone"
+
+  test:
+    title: "Unit tests"
+    type: "freestyle"
+    image: "node:current-alpine3.11"
+    working_directory: "${{clone}}"
+    commands:
+      - yarn
+      - yarn test
+    stage: "test"
+
+  build:
+    title: "Building Docker image"
+    type: "build"
+    image_name: "scottdkey/codefresh"
+    working_directory: "${{clone}}"
+    tags: ["${{CF_SHORT_REVISION}}"]
+    dockerfile: "Dockerfile"
+    stage: "build"
